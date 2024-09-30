@@ -1,0 +1,41 @@
+.Container{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.nav-links{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-links a{
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s ease-out;
+    list-style-type: none;
+    margin: 0px 10px;
+}
+
+.nav-links a:hover{
+    color: #f8e404;
+}
+.nav-links li{
+    list-style-type:none;
+    font-weight: bold;
+
+}
+.logo{
+    font-size: 40px;
+    margin: 0px 20px;
+    font-weight: bold;
+    width: 100%;
+
+
+}
