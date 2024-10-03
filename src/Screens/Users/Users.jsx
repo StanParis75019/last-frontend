@@ -8,7 +8,7 @@ import { BASE_URL } from '../../Components/Constant';
 const ManageUsersPage = () => {
   // État pour stocker la liste des utilisateurs récupérés du backend
   const [users, setUsers] = useState([
-    { id: 1, username: "abdel", email: "abdel@gmail.com", role: "admin" }
+    
   ]);
 
   // État pour l'utilisateur actuellement sélectionné pour la suppression
