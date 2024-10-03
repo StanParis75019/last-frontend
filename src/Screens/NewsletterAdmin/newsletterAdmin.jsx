@@ -52,7 +52,7 @@ const NewsletterAdmin = () => {
   const handleDeleteUser = async () => {
     try {
       // Envoie une requête pour supprimer l'utilisateur avec les informations d'authentification
-      await axios.delete(BASE_URL+`users/${selectedUser.id}`, {
+      await axios.delete(BASE_URL+`newsletter/delete/${selectedUser.id}`, {
         data: {
           email: adminEmail,
           password: adminPassword,

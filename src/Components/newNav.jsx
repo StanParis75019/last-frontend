@@ -1,73 +1,115 @@
-import { Label } from '@mui/icons-material';
 import React, { useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-
-
 const Navbar = () => {
-  const handleLogout = () =>{
+  // State for mobile navigation menu
+  const [navOpen, setNavOpen] = useState(false);
+  const [userName, setUserName] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
+
+  // Logout handler
+  const handleLogout = () => {
     localStorage.removeItem('user');
     window.location.href = '/';
     window.location.reload();
-  }
-  // État local pour gérer l'ouverture/fermeture du menu mobile
-  const [navOpen, setNavOpen] = useState(false);
-  const [userName, setuserName] = useState(null);
-  const [selectLink, setSelectLink] = useState('')
-  const handleSelectChange=(e) =>{
-    setSelectLink(e.target.value)
-    if(e.target.value==='logout'){
-      handleLogout()
+  };
+
+  // Fetch user data from localStorage
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    if (user) {
+      setUserName(user);
+    }
+  }, []);
+
+  // Navigate to dashboard based on role
+  const navigateToDashboard = () => {
+    if (userName?.role === 'USER') {
+      window.location.href = '/DashboardAdmin';
+    } else {
+      window.location.href = '/DashboardUser';
+    }
+  };
+  const navigateToQuiz = () => {
+    if (userName?.role === 'ADMIN') {
+      window.location.href = '/quizManagment';
+    } else {
+      window.location.href = '/UsersQuiz?query=';
     }
   }
 
-  const handlelogincheck = () =>{
-    
-  }
-useEffect(() => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  console.log(user)
-  if(user){
-    setuserName(user);
-  }
-}, [])
+  // Toggle dropdown
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <nav className="z-50 relative bg-gray-800 text-white fixed w-full z-10 top-0 shadow-lg">
       <div className="container mx-auto flex justify-between items-center p-4">
-        {/* Logo du site */}
-       
-        <Link className='cursor-pointer' to={'/'}>
-        <h1 className="text-2xl font-bold">QuizStan</h1>
-        
+        {/* Logo */}
+        <Link className="cursor-pointer" to="/">
+          <h1 className="text-2xl font-bold">QuizStan</h1>
         </Link>
 
-
-        {/* Liens de navigation pour les écrans de bureau */}
+        {/* Desktop navigation links */}
         <div className="hidden md:flex space-x-6">
           <Link to="/" className="hover:text-gray-300">Accueil</Link>
           <Link to="/about" className="hover:text-gray-300">À propos</Link>
           <Link to="/categories" className="hover:text-gray-300">Catégories</Link>
-          <Link to="/quiz" className="hover:text-gray-300">Exemples Quiz</Link>
-          <Link to="/contact" className="hover:text-gray-300">Contact</Link>
-          {userName?(
-            <>
-            
-            <select value={selectLink} onChange={handleSelectChange} className='bg-black text-white rounded-xl font-bold px-4 py-2 outline-none' id='linkselect' >
-                <option key={1} value={'logout'}>{`Bonjour ${userName?.username}`}</option>
-                <option key={2} value={'dashboard'}>Dashboard</option>
-                <option key={3} value={'logout'}>
-                Deconnexion
+          {!userName ?  (
+            <Link to="/quiz" className="hover:text-gray-300">Exemples Quiz</Link>
 
-                </option>
-            </select>
-              </>
-          ):(
+          ) : (
+            userName.role === "ADMIN" ? (
+              <Link to="/quizManagment" className="hover:text-gray-300">Quiz</Link>
+            ) : (
+              <Link to="/UsersQuiz?query=" className="hover:text-gray-300">Quiz</Link>
+            )
+          )}
+          <Link to="/contact" className="hover:text-gray-300">Contact</Link>
+          
+          {userName ? (
+            <div className="relative">
+              {/* Dropdown trigger */}
+              <button
+                onClick={toggleDropdown}
+                className="bg-gray-500 text-white rounded-xl font-bold px-4 py-2 outline-none hover:bg-gray-700"
+              >
+                Bonjour, {userName?.username}
+              </button>
+
+              {/* Dropdown menu */}
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 bg-white text-black rounded-md shadow-lg py-2 w-48">
+                  <button
+                    onClick={navigateToDashboard}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                  >
+                    Dashboard
+                  </button>
+                  <button
+                    onClick={navigateToQuiz}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                  >
+                    quizs
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-200"
+                  >
+                    Déconnexion
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
             <Link to="/auth" className="hover:text-gray-300">Authentification</Link>
           )}
         </div>
 
-        {/* Bouton du menu hamburger pour les mobiles */}
+        {/* Mobile menu button */}
         <div className="md:hidden">
           <button onClick={() => setNavOpen(!navOpen)}>
             {navOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
@@ -75,7 +117,7 @@ useEffect(() => {
         </div>
       </div>
 
-      {/* Menu mobile : s'affiche uniquement lorsque navOpen est true */}
+      {/* Mobile menu */}
       {navOpen && (
         <div className="md:hidden bg-gray-800 p-4 space-y-4">
           <Link to="/" className="block hover:text-gray-300">Accueil</Link>

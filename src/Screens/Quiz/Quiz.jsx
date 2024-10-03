@@ -23,6 +23,7 @@ const ManageQuizzesPage = () => {
     try {
       const response = await axios.get(BASE_URL + 'quizzes');
       setQuizzes(response.data);
+      console.log(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching quizzes:', error);
@@ -64,9 +65,10 @@ const ManageQuizzesPage = () => {
       // Refresh quizzes after adding
       fetchQuizzes();
       setIsAddDialogOpen(false);
-      setQuizDetails({ question: '', response: '', category: '' });
+      setQuizDetails({ question: '', response: false, category: '' });
     } catch (error) {
       console.error('Error adding quiz:', error);
+
     }
   };
 
@@ -135,7 +137,7 @@ const ManageQuizzesPage = () => {
                 quizzes.map((quiz) => (
                   <TableRow key={quiz.id}>
                     <TableCell>{quiz.question}</TableCell>
-                    <TableCell>{quiz.response ? 'Vrai' : 'Faux'}</TableCell>
+                    <TableCell>{quiz.response === "true" ? 'Vrai' : 'Faux'}</TableCell>
                     <TableCell>{quiz.category}</TableCell>
                     <TableCell>
                       <IconButton onClick={() => handleEditClick(quiz)}>
@@ -171,8 +173,8 @@ const ManageQuizzesPage = () => {
                 value={quizDetails.response}
                 onChange={handleQuizDetailsChange}
               >
-                <MenuItem value="true">Vrai</MenuItem>
-                <MenuItem value="false">Faux</MenuItem>
+                <MenuItem value={"vrai"}>Vrai</MenuItem>
+                <MenuItem value={"false"}>Faux</MenuItem>
               </Select>
             </FormControl>
             <TextField

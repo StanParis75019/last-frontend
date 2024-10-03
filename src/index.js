@@ -21,6 +21,7 @@ import QuizPage from './Screens/FakeQuiz/FakeQuiz';
 import UserDashboardPage from './Screens/DashBoardUser/DashBoardUser';
 import QuizListingPage from './Screens/UsersQuiz/UsersQuiz';
 import NewsletterAdmin from './Screens/NewsletterAdmin/newsletterAdmin';
+import Profile from './Screens/UserProfile/Profile';
 
 // Création du router avec les différentes routes et les composants associés
 const router = createBrowserRouter([
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
   { path: "/DashboardUser", element: <UserDashboardPage></UserDashboardPage> }, // Route pour le tableau de bord de l'utilisateur
   { path: "/UsersQuiz", element: <QuizListingPage></QuizListingPage> }, // Route pour l'affichage des quiz utilisateur
   { path: "/newsletterAdmin", element: <NewsletterAdmin></NewsletterAdmin> }, // Route pour l'affichage des quiz utilisateur
+  { path: "/userProfile", element: <Profile></Profile> }
 ]);
 
 // Création du root de l'application et rendu du composant RouterProvider pour la gestion des routes

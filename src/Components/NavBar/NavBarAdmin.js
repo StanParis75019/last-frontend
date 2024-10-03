@@ -2,6 +2,12 @@ import React from 'react';
 import { FaUser, FaUsersCog, FaChartLine, FaQuestionCircle, FaListAlt, FaEnvelope, FaUserCircle, FaSignOutAlt } from 'react-icons/fa';
 
 const NavBarAdmin = () => {
+  const handlelogout = () =>{
+    console.log("data");
+    localStorage.removeItem('user');
+    window.location.href = '/auth';
+    // window.location.reload();
+  }
   return (
     <div className="w-64 bg-gray-900 text-white h-screen p-6 fixed">
       {/* Titre de la barre de navigation */}
@@ -75,7 +81,7 @@ const NavBarAdmin = () => {
 
           {/* Lien pour la déconnexion */}
           <li>
-            <a href="/auth" className="flex items-center space-x-2 hover:text-gray-300">
+            <a onClick={handlelogout} className="flex cursor-pointer items-center space-x-2 hover:text-gray-300">
               <FaSignOutAlt />
               <span>Déconnexion</span>
             </a>

@@ -11,10 +11,10 @@ const HeroSection = () => {
     }
     else {
       if (user.role === 'ADMIN'){
-        router("/dashboar")
+        router("/dashboard")
       }
       else {
-        router("/dashboarduser")
+        router("/categories")
       }
     }
 
@@ -36,10 +36,10 @@ const HeroSection = () => {
 
         {/* Boutons */}
         <div className="space-x-4">
-          <a onClick={handleredirection} className="bg-blue-600 px-6 py-3 rounded-full text-lg font-semibold hover:bg-blue-700 transition ease-in-out duration-300">
+          <a onClick={handleredirection} className="bg-blue-600 px-6 py-3 cursor-pointer rounded-full text-lg font-semibold hover:bg-blue-700 transition ease-in-out duration-300">
             Commencer <FaArrowRight className="inline ml-2" />
           </a>
-          <a href="#about" className="bg-transparent border-2 border-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-800 transition ease-in-out duration-300">
+          <a href="/about" className="bg-transparent border-2 border-white px-6 py-3 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-800 transition ease-in-out duration-300">
             À propos
           </a>
         </div>

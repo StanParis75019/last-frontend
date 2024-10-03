@@ -3,11 +3,14 @@ import Footer from '../../Components/Footer/Footer';
 import Navbar from '../../Components/newNav';
 import axios from 'axios';
 import { BASE_URL } from '../../Components/Constant';
-import {toast, Toaster} from 'react-hot-toast'
+import { toast, Toaster } from 'react-hot-toast';
 
 const ContactPage = () => {
   // État pour stocker les données du formulaire de contact
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+  // État pour gérer le chargement lors de l'envoi du message
+  const [loading, setLoading] = useState(false);
 
   // Gère les changements dans les champs du formulaire
   const handleChange = (e) => {
@@ -17,19 +20,34 @@ const ContactPage = () => {
   // Gère la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(BASE_URL + "messages", {
-      senderName: formData.name,
-      email: formData.email,
-      messageBody: formData.message
-    });    
-    toast.success("Message envoyé avec succès", {style:{backgroundColor:"green", color:'white'}})
-    // Réinitialise le formulaire après l'envoi
-    setFormData({ name: '', email: '', message: '' });
+    
+    // Active le spinner
+    setLoading(true);
+
+    try {
+      await axios.post(BASE_URL + "messages", {
+        senderName: formData.name,
+        email: formData.email,
+        messageBody: formData.message
+      });
+
+      toast.success("Message envoyé avec succès", {
+        style: { backgroundColor: "green", color: 'white' }
+      });
+
+      // Réinitialise le formulaire après l'envoi
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      toast.error("Erreur lors de l'envoi du message");
+    } finally {
+      // Désactive le spinner
+      setLoading(false);
+    }
   };
 
   return (
     <div className="ContactPage"> 
-    <Toaster></Toaster>
+      <Toaster />
       <Navbar />
 
       {/* Section Héro */}
@@ -138,14 +156,24 @@ const ContactPage = () => {
               <button
                 type="submit"
                 className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition ease-in-out duration-300"
+                disabled={loading}  // Disable button while loading
               >
-                Envoyer le Message
+                {loading ? (
+                  <div className="flex justify-center items-center">
+                    <svg className="animate-spin h-5 w-5 mr-3 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                    </svg>
+                    Envoi...
+                  </div>
+                ) : (
+                  'Envoyer le Message'
+                )}
               </button>
             </div>
           </form>
         </div>
       </section>
-
       <Footer />
     </div>
   );

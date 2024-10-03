@@ -58,20 +58,24 @@ const CategorySection = () => {
               
               <div className="p-6 text-center">
                 {/* Badge pour indiquer le nombre de quiz */}
-                <span className="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-3">
+                {/* <span className="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-3">
                   {category.quizzes} Quizs
-                </span>
+                </span> */}
 
                 {/* Titre de la catégorie */}
                 <h3 className="text-xl font-semibold mb-4">{category.title}</h3>
 
                 {/* Bouton pour voir les quizs de la catégorie */}
-                <a onClick={()=>verifyAuthentication(category.title)} className="bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition ease-in-out duration-300">
+                <a onClick={()=>verifyAuthentication(category.title)} className="bg-blue-600 cursor-pointer text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition ease-in-out duration-300">
                   Voir les Quizs
                 </a>
               </div>
             </div>
           ))}
+        </div>
+        <div className='w-full my-6 flex flex-row justify-center items-center'>
+
+        <a href="/categories" className='bg-blue-600 text-center flex flex-row justify-center items-center w-52 cursor-pointer text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition ease-in-out duration-300'>voir tous les catégories</a>
         </div>
       </div>
     </section>

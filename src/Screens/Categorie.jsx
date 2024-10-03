@@ -36,14 +36,14 @@ const categories = [
   {
     id: 5,
     title: "Technologie",
-    image: "https://www.macsf.fr/var/macsf/storage/images/2/0/2/5/935202-12-fre-FR/Quel-sport-est-adapte_615x555.jpg",
+    image: "https://img.freepik.com/photos-gratuite/coup-moyen-homme-portant-lunettes-vr_23-2149126949.jpg?t=st=1727972220~exp=1727975820~hmac=0b17f7cf54a91984555aeb2095f4f928735224080a621b693c6cc18a69405a1d&w=1060",
     quizzes: 7,
     description: "Découvrez les dernières avancées technologiques avec nos quiz."
   },
   {
     id: 6,
     title: "Art",
-    image: "https://www.macsf.fr/var/macsf/storage/images/2/0/2/5/935202-12-fre-FR/Quel-sport-est-adapte_615x555.jpg",
+    image: "https://esoftskills.com/fr/wp-content/uploads/2024/03/Limportance-de-lart-et-de-la-creativite-pour-le-bien-etre.jpg",
     quizzes: 9,
     description: "Exprimez-vous à travers des quiz sur l'art et la créativité."
   }
@@ -95,9 +95,9 @@ const CategoriesPage = () => {
                 {/* Category Details */}
                 <div className="p-6 text-center">
                   {/* Badge for Quiz Count */}
-                  <span className="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-3">
+                  {/* <span className="bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full inline-block mb-3">
                     {category.quizzes} Quizs
-                  </span>
+                  </span> */}
 
                   {/* Category Title */}
                   <h3 className="text-xl font-semibold mb-4">{category.title}</h3>
@@ -108,7 +108,7 @@ const CategoriesPage = () => {
                   </p>
 
                   {/* Explore Button */}
-                  <a onClick={()=>handlequizshow(category.title)} className="bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition ease-in-out duration-300">
+                  <a onClick={()=>handlequizshow(category.title)} className="bg-blue-600 cursor-pointer text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-blue-700 transition ease-in-out duration-300">
                     Voir les Quizs
                   </a>
                 </div>
